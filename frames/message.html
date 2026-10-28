@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Message frame</title><link rel="stylesheet" href="../css/style.css"></head>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css"><title>Messages</title></head>
 <body class="frame">
   <h3>Iframe inbox</h3>
-  <p id="child-received" data-testid="child-received">Nothing received yet.</p>
-  <button id="btn-reply" data-testid="btn-reply">Reply to parent</button>
+  <p class="sub">Messages from the main page appear here.</p>
+  <div class="bubble" id="child-received" data-testid="child-received">Nothing received yet.</div>
+  <button class="btn" id="btn-reply" data-testid="btn-reply">Reply to parent</button>
 <script>
   let last = '';
   window.addEventListener('message', (e) => {

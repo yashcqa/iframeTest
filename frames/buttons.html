@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Buttons frame</title><link rel="stylesheet" href="../css/style.css"></head>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css"><title>Buttons</title></head>
 <body class="frame">
   <h3 id="buttons-title" data-testid="buttons-title">Buttons</h3>
-  <div class="row">
-    <button id="btn-plus" data-testid="btn-plus">Add 1</button>
-    <button id="btn-reset" data-testid="btn-reset" class="secondary">Reset</button>
-    <span>Count: <strong id="counter" data-testid="counter">0</strong></span>
+  <p class="sub">Click the buttons and check the results.</p>
+  <div class="counter-box">
+    <div><div class="group-label">Count</div><div class="counter-num" id="counter" data-testid="counter">0</div></div>
+    <div class="row" style="margin-left:auto">
+      <button class="btn" id="btn-plus" data-testid="btn-plus">Add 1</button>
+      <button class="btn ghost" id="btn-reset" data-testid="btn-reset">Reset</button>
+    </div>
   </div>
+  <p class="group-label">Browser dialogs</p>
   <div class="row">
-    <button id="btn-alert" data-testid="btn-alert">Show alert</button>
-    <button id="btn-confirm" data-testid="btn-confirm">Show confirm</button>
-    <button id="btn-prompt" data-testid="btn-prompt">Show prompt</button>
-    <button id="btn-delayed" data-testid="btn-delayed" class="secondary">Show text after 3s</button>
+    <button class="btn ghost small" id="btn-alert" data-testid="btn-alert">Show alert</button>
+    <button class="btn ghost small" id="btn-confirm" data-testid="btn-confirm">Show confirm</button>
+    <button class="btn ghost small" id="btn-prompt" data-testid="btn-prompt">Show prompt</button>
+    <button class="btn ghost small" id="btn-delayed" data-testid="btn-delayed">Show text after 3s</button>
   </div>
-  <p id="dialog-result" data-testid="dialog-result" class="status" role="status"></p>
-  <p id="delayed-text" data-testid="delayed-text" hidden>Delayed text is visible</p>
+  <p id="dialog-result" data-testid="dialog-result" class="status info" role="status"></p>
+  <p id="delayed-text" data-testid="delayed-text" class="status ok" hidden>Delayed text is visible</p>
 <script>
   const copy = new URLSearchParams(location.search).get('copy');
   if (copy) document.getElementById('buttons-title').textContent = 'Buttons (copy ' + copy + ')';
@@ -27,6 +31,10 @@
   document.getElementById('btn-alert').onclick = () => { alert('Hello from iframe'); out.textContent = 'Alert closed'; };
   document.getElementById('btn-confirm').onclick = () => { out.textContent = confirm('Do you agree?') ? 'Confirm: OK' : 'Confirm: Cancel'; };
   document.getElementById('btn-prompt').onclick = () => { const v = prompt('Your name?'); out.textContent = v === null ? 'Prompt: Cancel' : 'Prompt: ' + v; };
-  document.getElementById('btn-delayed').onclick = () => setTimeout(() => document.getElementById('delayed-text').hidden = false, 3000);
+  document.getElementById('btn-delayed').onclick = () => {
+    const d = document.getElementById('delayed-text'); d.hidden = true;
+    out.textContent = 'Waiting 3 seconds…';
+    setTimeout(() => { d.hidden = false; out.textContent = ''; }, 3000);
+  };
 </script>
 </body></html>

@@ -6,7 +6,7 @@ A static website with many iframe cases for practicing UI test automation.
 1. Create a new **public** repository on GitHub (for example `iframe-test-site`).
 2. Click **Add file → Upload files**, drag in everything from this folder (index.html, css, frames, .nojekyll, README.md), then click **Commit changes**.
 3. Go to **Settings → Pages**. Under *Build and deployment*, choose **Deploy from a branch**, branch **main**, folder **/ (root)**, then **Save**.
-4. Wait 1–2 minutes. Your site will be at `https://YOUR-USERNAME.github.io/iframe-test-site/`.
+4. Wait 1–2 minutes. Your site will be at `https://yashcqa.github.io/iframeTest/`.
 
 ## Test cases
 | Section | Iframe id | What to test |
@@ -14,7 +14,7 @@ A static website with many iframe cases for practicing UI test automation.
 | Login form | `frame-form` | Type, click, read result (`tester` / `password123`) |
 | Buttons | `frame-buttons` | Counter, alert/confirm/prompt, delayed text |
 | Nested | `frame-outer` → `frame-inner` | Switching into a frame inside a frame |
-| Table | `frame-table` | Read cells, dropdown filter |
+| Table | `frame-table` | Read cells, search box, dropdown filter |
 | Dynamic | `frame-dynamic` | Iframe appears 2s after clicking Load |
 | srcdoc | `frame-srcdoc` | Inline iframe content |
 | postMessage | `frame-message` | Parent ↔ iframe messages |

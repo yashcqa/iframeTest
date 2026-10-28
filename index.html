@@ -4,112 +4,220 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Iframe Test Playground</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="wrap">
-  <header class="site">
-    <h1>Iframe Test Playground</h1>
-    <p>Practice pages for testing iframes with Playwright, Selenium, Cypress or any test tool. Every element has an <code>id</code> and a <code>data-testid</code>.</p>
-    <ul class="toc">
-      <li><a href="#case-form">Login form</a></li>
-      <li><a href="#case-buttons">Buttons & alerts</a></li>
-      <li><a href="#case-nested">Nested iframes</a></li>
-      <li><a href="#case-table">Table</a></li>
-      <li><a href="#case-dynamic">Dynamic iframe</a></li>
-      <li><a href="#case-srcdoc">srcdoc iframe</a></li>
-      <li><a href="#case-message">postMessage</a></li>
-      <li><a href="#case-multiple">Same-name iframes</a></li>
+<div class="app">
+
+  <aside class="side">
+    <div class="brand">
+      <div class="brand-mark">&lt;/&gt;</div>
+      <div><div class="brand-name">Iframe Playground</div><div class="brand-sub">Practice site for test automation</div></div>
+    </div>
+    <ul class="nav" id="nav">
+      <li><a href="#case-form">Login form<small>#frame-form</small></a></li>
+      <li><a href="#case-buttons">Buttons and dialogs<small>#frame-buttons</small></a></li>
+      <li><a href="#case-nested">Nested iframes<small>#frame-outer › #frame-inner</small></a></li>
+      <li><a href="#case-table">Table and filter<small>#frame-table</small></a></li>
+      <li><a href="#case-dynamic">Dynamic iframe<small>#frame-dynamic</small></a></li>
+      <li><a href="#case-srcdoc">srcdoc iframe<small>#frame-srcdoc</small></a></li>
+      <li><a href="#case-message">postMessage<small>#frame-message</small></a></li>
+      <li><a href="#case-multiple">Same page twice<small>#frame-copy-1, #frame-copy-2</small></a></li>
     </ul>
-  </header>
+    <div class="side-note"><strong>Test login</strong><br>Username: <code>tester</code><br>Password: <code>password123</code></div>
+  </aside>
 
-  <section class="case" id="case-form">
-    <h2>Login form inside an iframe</h2>
-    <p class="desc">Fill in the fields and click Sign in. Valid login: <code>tester</code> / <code>password123</code>.</p>
-    <iframe id="frame-form" name="frame-form" data-testid="frame-form" title="Login form" src="frames/form.html" class="h-md"></iframe>
-  </section>
+  <main class="main">
+    <header class="intro">
+      <h1>Iframe Test Playground</h1>
+      <p>Eight real-world iframe situations to practice with Playwright, Selenium or Cypress. Every element has an <code>id</code> and a <code>data-testid</code>. Click any selector to copy it.</p>
+      <ul class="facts">
+        <li>8 test cases</li>
+        <li>Frames nested 2 deep</li>
+        <li>All frames same-origin</li>
+        <li>Light and dark mode</li>
+      </ul>
+    </header>
 
-  <section class="case" id="case-buttons">
-    <h2>Buttons, counter and alerts</h2>
-    <p class="desc">Click buttons, check the counter, handle alert, confirm and prompt dialogs, and wait for a delayed element.</p>
-    <iframe id="frame-buttons" name="frame-buttons" data-testid="frame-buttons" title="Buttons" src="frames/buttons.html" class="h-md"></iframe>
-  </section>
+    <!-- 1. Login form -->
+    <section class="case" id="case-form">
+      <div class="case-head">
+        <div><h2>Login form</h2><p class="desc">Type in the fields, tick the checkbox and sign in. Try a wrong password to see the error message.</p></div>
+        <div class="selectors"><button class="chip" data-copy="#frame-form">#frame-form <span class="copy-label">Copy</span></button></div>
+      </div>
+      <div class="window">
+        <div class="window-bar"><span class="tag">iframe#frame-form</span><span class="src">frames/form.html</span><button class="reload" data-reload="frame-form">Reload</button></div>
+        <iframe id="frame-form" name="frame-form" data-testid="frame-form" title="Login form" src="frames/form.html" class="h-lg"></iframe>
+      </div>
+    </section>
 
-  <section class="case" id="case-nested">
-    <h2>Nested iframes (3 levels)</h2>
-    <p class="desc">Page → outer iframe → inner iframe. The text field lives in the innermost frame.</p>
-    <iframe id="frame-outer" name="frame-outer" data-testid="frame-outer" title="Outer frame" src="frames/nested-outer.html" class="h-lg"></iframe>
-  </section>
+    <!-- 2. Buttons -->
+    <section class="case" id="case-buttons">
+      <div class="case-head">
+        <div><h2>Buttons and dialogs</h2><p class="desc">A counter, browser alert, confirm and prompt dialogs, and text that appears after 3 seconds.</p></div>
+        <div class="selectors"><button class="chip" data-copy="#frame-buttons">#frame-buttons <span class="copy-label">Copy</span></button></div>
+      </div>
+      <div class="window">
+        <div class="window-bar"><span class="tag">iframe#frame-buttons</span><span class="src">frames/buttons.html</span><button class="reload" data-reload="frame-buttons">Reload</button></div>
+        <iframe id="frame-buttons" name="frame-buttons" data-testid="frame-buttons" title="Buttons" src="frames/buttons.html" class="h-lg"></iframe>
+      </div>
+    </section>
 
-  <section class="case" id="case-table">
-    <h2>Table and dropdown</h2>
-    <p class="desc">Read table cells, filter by status, and pick a value from a dropdown.</p>
-    <iframe id="frame-table" name="frame-table" data-testid="frame-table" title="Table" src="frames/table.html" class="h-lg"></iframe>
-  </section>
+    <!-- 3. Nested -->
+    <section class="case" id="case-nested">
+      <div class="case-head">
+        <div><h2>Nested iframes</h2><p class="desc">This page holds an outer iframe, and the outer iframe holds an inner one. Switch frame twice to reach the inner field.</p></div>
+        <div class="selectors">
+          <button class="chip" data-copy="#frame-outer">#frame-outer <span class="copy-label">Copy</span></button>
+          <button class="chip" data-copy="#frame-inner">#frame-inner <span class="copy-label">Copy</span></button>
+        </div>
+      </div>
+      <div class="window">
+        <div class="window-bar"><span class="tag">iframe#frame-outer</span><span class="src">frames/nested-outer.html</span><button class="reload" data-reload="frame-outer">Reload</button></div>
+        <iframe id="frame-outer" name="frame-outer" data-testid="frame-outer" title="Outer frame" src="frames/nested-outer.html" class="h-xl"></iframe>
+      </div>
+    </section>
 
-  <section class="case" id="case-dynamic">
-    <h2>Dynamic iframe</h2>
-    <p class="desc">The iframe only appears 2 seconds after you click Load. Use it to test waits.</p>
-    <div class="row">
-      <button id="btn-load-frame" data-testid="btn-load-frame">Load iframe</button>
-      <button id="btn-remove-frame" data-testid="btn-remove-frame" class="secondary">Remove iframe</button>
-      <span id="dynamic-status" data-testid="dynamic-status" class="status">No iframe loaded</span>
-    </div>
-    <div id="dynamic-holder"></div>
-  </section>
+    <!-- 4. Table -->
+    <section class="case" id="case-table">
+      <div class="case-head">
+        <div><h2>Table and filter</h2><p class="desc">Read cells, filter rows with the dropdown, search by name and check the row count.</p></div>
+        <div class="selectors"><button class="chip" data-copy="#frame-table">#frame-table <span class="copy-label">Copy</span></button></div>
+      </div>
+      <div class="window">
+        <div class="window-bar"><span class="tag">iframe#frame-table</span><span class="src">frames/table.html</span><button class="reload" data-reload="frame-table">Reload</button></div>
+        <iframe id="frame-table" name="frame-table" data-testid="frame-table" title="Table" src="frames/table.html" class="h-xl"></iframe>
+      </div>
+    </section>
 
-  <section class="case" id="case-srcdoc">
-    <h2>srcdoc iframe (no separate file)</h2>
-    <p class="desc">Content is written directly in the <code>srcdoc</code> attribute.</p>
-    <iframe id="frame-srcdoc" data-testid="frame-srcdoc" title="srcdoc" class="h-sm"
-      srcdoc="<body style='font-family:system-ui;padding:12px'><p id='srcdoc-text' data-testid='srcdoc-text'>Hello from srcdoc</p><input id='srcdoc-input' data-testid='srcdoc-input' placeholder='Type here'><button id='srcdoc-btn' data-testid='srcdoc-btn' onclick=&quot;document.getElementById('srcdoc-text').textContent='You typed: '+document.getElementById('srcdoc-input').value&quot;>Show</button></body>"></iframe>
-  </section>
+    <!-- 5. Dynamic -->
+    <section class="case" id="case-dynamic">
+      <div class="case-head">
+        <div><h2>Dynamic iframe</h2><p class="desc">The iframe is added to the page 2 seconds after you click Load. Use it to practice waiting for a frame.</p></div>
+        <div class="selectors"><button class="chip" data-copy="#frame-dynamic">#frame-dynamic <span class="copy-label">Copy</span></button></div>
+      </div>
+      <div class="toolbar">
+        <button id="btn-load-frame" data-testid="btn-load-frame" class="btn">Load iframe</button>
+        <button id="btn-remove-frame" data-testid="btn-remove-frame" class="btn ghost">Remove iframe</button>
+        <span id="dynamic-status" data-testid="dynamic-status" class="status info" style="margin:0">No iframe loaded</span>
+      </div>
+      <div id="dynamic-holder"><div class="empty" id="dynamic-empty">Click Load iframe. The frame appears here after 2 seconds.</div></div>
+    </section>
 
-  <section class="case" id="case-message">
-    <h2>Talking between page and iframe (postMessage)</h2>
-    <p class="desc">Send a message into the iframe; the iframe sends a reply back to this page.</p>
-    <div class="row">
-      <input id="parent-msg" data-testid="parent-msg" value="Ping from parent" aria-label="Message to send">
-      <button id="btn-send-msg" data-testid="btn-send-msg">Send to iframe</button>
-    </div>
-    <iframe id="frame-message" name="frame-message" data-testid="frame-message" title="Messages" src="frames/message.html" class="h-sm"></iframe>
-    <div class="log" id="parent-log" data-testid="parent-log">Replies from iframe show here.</div>
-  </section>
+    <!-- 6. srcdoc -->
+    <section class="case" id="case-srcdoc">
+      <div class="case-head">
+        <div><h2>srcdoc iframe</h2><p class="desc">The content is written inside the <code>srcdoc</code> attribute, so there is no separate file and no URL.</p></div>
+        <div class="selectors"><button class="chip" data-copy="#frame-srcdoc">#frame-srcdoc <span class="copy-label">Copy</span></button></div>
+      </div>
+      <div class="window">
+        <div class="window-bar"><span class="tag">iframe#frame-srcdoc</span><span class="src">about:srcdoc</span></div>
+        <iframe id="frame-srcdoc" data-testid="frame-srcdoc" title="srcdoc" class="h-sm"
+          srcdoc="<!DOCTYPE html><html><head><link rel='stylesheet' href='css/style.css'></head><body class='frame'><h3>Inline frame</h3><p class='sub' id='srcdoc-text' data-testid='srcdoc-text'>Hello from srcdoc</p><div class='row'><div style='flex:1;min-width:180px'><input class='input' id='srcdoc-input' data-testid='srcdoc-input' placeholder='Type something' aria-label='Text'></div><button class='btn' id='srcdoc-btn' data-testid='srcdoc-btn' onclick=&quot;var v=document.getElementById('srcdoc-input').value;document.getElementById('srcdoc-text').textContent=v?'You typed: '+v:'Type something first.'&quot;>Show text</button></div></body></html>"></iframe>
+      </div>
+    </section>
 
-  <section class="case" id="case-multiple">
-    <h2>Two iframes with the same page</h2>
-    <p class="desc">Both load the same file, so you must pick the right frame by id or index.</p>
-    <iframe id="frame-copy-1" data-testid="frame-copy-1" title="Copy 1" src="frames/buttons.html?copy=1" class="h-sm"></iframe>
-    <br>
-    <iframe id="frame-copy-2" data-testid="frame-copy-2" title="Copy 2" src="frames/buttons.html?copy=2" class="h-sm"></iframe>
-  </section>
+    <!-- 7. postMessage -->
+    <section class="case" id="case-message">
+      <div class="case-head">
+        <div><h2>postMessage</h2><p class="desc">Send a message into the iframe, then click Reply inside it. The reply shows in the box under the frame.</p></div>
+        <div class="selectors"><button class="chip" data-copy="#frame-message">#frame-message <span class="copy-label">Copy</span></button></div>
+      </div>
+      <div class="toolbar">
+        <div style="flex:1;min-width:200px"><input id="parent-msg" data-testid="parent-msg" class="input" value="Ping from parent" aria-label="Message to send"></div>
+        <button id="btn-send-msg" data-testid="btn-send-msg" class="btn">Send to iframe</button>
+      </div>
+      <div class="window">
+        <div class="window-bar"><span class="tag">iframe#frame-message</span><span class="src">frames/message.html</span><button class="reload" data-reload="frame-message">Reload</button></div>
+        <iframe id="frame-message" name="frame-message" data-testid="frame-message" title="Messages" src="frames/message.html" class="h-sm"></iframe>
+      </div>
+      <div class="log" id="parent-log" data-testid="parent-log"><b>No reply from the iframe yet.</b></div>
+    </section>
 
-  <footer>Hosted on GitHub Pages. All frames are same-origin, so test tools can read inside them.</footer>
+    <!-- 8. Same page twice -->
+    <section class="case" id="case-multiple">
+      <div class="case-head">
+        <div><h2>Same page twice</h2><p class="desc">Both frames load the same file and have identical elements inside. Pick the right one by its id.</p></div>
+        <div class="selectors">
+          <button class="chip" data-copy="#frame-copy-1">#frame-copy-1 <span class="copy-label">Copy</span></button>
+          <button class="chip" data-copy="#frame-copy-2">#frame-copy-2 <span class="copy-label">Copy</span></button>
+        </div>
+      </div>
+      <div class="split">
+        <div class="window">
+          <div class="window-bar"><span class="tag">iframe#frame-copy-1</span><span class="src">buttons.html?copy=1</span></div>
+          <iframe id="frame-copy-1" data-testid="frame-copy-1" title="Copy 1" src="frames/buttons.html?copy=1" class="h-lg"></iframe>
+        </div>
+        <div class="window">
+          <div class="window-bar"><span class="tag">iframe#frame-copy-2</span><span class="src">buttons.html?copy=2</span></div>
+          <iframe id="frame-copy-2" data-testid="frame-copy-2" title="Copy 2" src="frames/buttons.html?copy=2" class="h-lg"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
 
 <script>
+  // Copy selector chips
+  document.querySelectorAll('[data-copy]').forEach(chip => {
+    chip.addEventListener('click', async () => {
+      const label = chip.querySelector('.copy-label');
+      try { await navigator.clipboard.writeText(chip.dataset.copy); label.textContent = 'Copied'; chip.classList.add('copied'); }
+      catch (e) { label.textContent = 'Select and copy'; }
+      setTimeout(() => { label.textContent = 'Copy'; chip.classList.remove('copied'); }, 1500);
+    });
+  });
+
+  // Reload buttons
+  document.querySelectorAll('[data-reload]').forEach(btn => {
+    btn.addEventListener('click', () => { const f = document.getElementById(btn.dataset.reload); f.src = f.src; });
+  });
+
+  // Highlight current section in the sidebar
+  const links = [...document.querySelectorAll('#nav a')];
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('.case').forEach(s => obs.observe(s));
+
   // Dynamic iframe
   const holder = document.getElementById('dynamic-holder');
   const dynStatus = document.getElementById('dynamic-status');
+  const emptyBox = document.getElementById('dynamic-empty');
+  let loading = false;
   document.getElementById('btn-load-frame').addEventListener('click', () => {
-    if (document.getElementById('frame-dynamic')) return;
-    dynStatus.textContent = 'Loading…';
+    if (loading || document.getElementById('frame-dynamic')) return;
+    loading = true;
+    dynStatus.textContent = 'Loading, please wait…';
     setTimeout(() => {
+      emptyBox.hidden = true;
+      const win = document.createElement('div');
+      win.className = 'window';
+      win.id = 'dynamic-window';
+      win.innerHTML = '<div class="window-bar"><span class="tag">iframe#frame-dynamic</span><span class="src">frames/form.html?dynamic=1</span></div>';
       const f = document.createElement('iframe');
       f.id = 'frame-dynamic';
+      f.name = 'frame-dynamic';
       f.setAttribute('data-testid', 'frame-dynamic');
       f.title = 'Dynamic frame';
-      f.className = 'h-md';
+      f.className = 'h-lg';
       f.src = 'frames/form.html?dynamic=1';
-      holder.appendChild(f);
+      win.appendChild(f);
+      holder.appendChild(win);
       dynStatus.textContent = 'Iframe loaded';
+      loading = false;
     }, 2000);
   });
   document.getElementById('btn-remove-frame').addEventListener('click', () => {
-    const f = document.getElementById('frame-dynamic');
-    if (f) f.remove();
+    const w = document.getElementById('dynamic-window');
+    if (w) w.remove();
+    emptyBox.hidden = false;
     dynStatus.textContent = 'No iframe loaded';
   });
 
@@ -120,7 +228,7 @@
     msgFrame.contentWindow.postMessage({ from: 'parent', text: document.getElementById('parent-msg').value }, '*');
   });
   window.addEventListener('message', (e) => {
-    if (e.data && e.data.from === 'child') parentLog.textContent = 'Reply: ' + e.data.text;
+    if (e.data && e.data.from === 'child') parentLog.textContent = 'Reply from iframe: ' + e.data.text;
   });
 </script>
 </body>

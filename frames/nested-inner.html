@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Inner frame</title><link rel="stylesheet" href="../css/style.css"></head>
-<body class="frame">
-  <h3 id="inner-title" data-testid="inner-title">Inner frame (level 2)</h3>
-  <div class="field"><label for="inner-input">Message</label>
-    <input id="inner-input" data-testid="inner-input" placeholder="Type in the deepest frame"></div>
-  <button id="btn-inner" data-testid="btn-inner">Send</button>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css"><title>Inner frame</title></head>
+<body class="frame" style="background:var(--surface-2)">
+  <span class="level">Level 2</span>
+  <h3 id="inner-title" data-testid="inner-title">Inner frame</h3>
+  <p class="sub">The deepest frame. Switch into the outer frame first, then this one.</p>
+  <div class="row">
+    <div style="flex:1;min-width:180px"><input class="input" id="inner-input" data-testid="inner-input" placeholder="Type a message" aria-label="Message"></div>
+    <button class="btn" id="btn-inner" data-testid="btn-inner">Send</button>
+  </div>
   <p id="inner-result" data-testid="inner-result" class="status" role="status"></p>
 <script>
   document.getElementById('btn-inner').onclick = () => {

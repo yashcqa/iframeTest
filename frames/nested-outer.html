@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Outer frame</title><link rel="stylesheet" href="../css/style.css"></head>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css"><title>Outer frame</title></head>
 <body class="frame">
-  <h3 id="outer-title" data-testid="outer-title">Outer frame (level 1)</h3>
+  <span class="level">Level 1</span>
+  <h3 id="outer-title" data-testid="outer-title">Outer frame</h3>
+  <p class="sub">This field is in the outer frame. The inner frame is below.</p>
   <div class="row">
-    <input id="outer-input" data-testid="outer-input" placeholder="Outer input" aria-label="Outer input">
-    <button id="btn-outer" data-testid="btn-outer">Save outer</button>
-    <span id="outer-result" data-testid="outer-result" class="status"></span>
+    <div style="flex:1;min-width:180px"><input class="input" id="outer-input" data-testid="outer-input" placeholder="Outer input" aria-label="Outer input"></div>
+    <button class="btn" id="btn-outer" data-testid="btn-outer">Save outer</button>
   </div>
-  <iframe id="frame-inner" name="frame-inner" data-testid="frame-inner" title="Inner frame" src="nested-inner.html" style="height:200px"></iframe>
+  <p id="outer-result" data-testid="outer-result" class="status ok" role="status"></p>
+  <div class="inner-box">
+    <div class="window-bar"><span class="tag">iframe#frame-inner</span><span class="src">frames/nested-inner.html</span></div>
+    <iframe id="frame-inner" name="frame-inner" data-testid="frame-inner" title="Inner frame" src="nested-inner.html"></iframe>
+  </div>
 <script>
-  document.getElementById('btn-outer').onclick = () =>
-    document.getElementById('outer-result').textContent = 'Saved: ' + document.getElementById('outer-input').value;
+  document.getElementById('btn-outer').onclick = () => {
+    const v = document.getElementById('outer-input').value;
+    const r = document.getElementById('outer-result');
+    r.textContent = v ? 'Saved: ' + v : 'Type something first.';
+    r.className = 'status ' + (v ? 'ok' : 'err');
+  };
 </script>
 </body></html>

@@ -1,36 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Table frame</title><link rel="stylesheet" href="../css/style.css"></head>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css"><title>Table</title></head>
 <body class="frame">
   <h3 data-testid="table-title">Users</h3>
-  <div class="row">
-    <label for="status-filter" style="margin:0">Status</label>
-    <select id="status-filter" data-testid="status-filter">
-      <option value="all">All</option><option value="active">Active</option><option value="inactive">Inactive</option>
-    </select>
-    <span>Showing <strong id="row-count" data-testid="row-count">5</strong> rows</span>
+  <p class="sub">Showing <strong id="row-count" data-testid="row-count">6</strong> of 6 users</p>
+  <div class="row" style="margin:0 0 14px">
+    <div style="flex:2;min-width:160px"><input class="input" id="name-search" data-testid="name-search" placeholder="Search by name" aria-label="Search by name"></div>
+    <div style="flex:1;min-width:140px">
+      <select class="input" id="status-filter" data-testid="status-filter" aria-label="Status">
+        <option value="all">All statuses</option><option value="active">Active</option><option value="inactive">Inactive</option>
+      </select>
+    </div>
   </div>
-  <div class="scroll">
+  <div class="table-wrap">
   <table id="users-table" data-testid="users-table">
-    <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Status</th></tr></thead>
+    <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
     <tbody>
-      <tr data-status="active"><td>1</td><td>Asha Patel</td><td>asha@test.dev</td><td>active</td></tr>
-      <tr data-status="inactive"><td>2</td><td>Ravi Kumar</td><td>ravi@test.dev</td><td>inactive</td></tr>
-      <tr data-status="active"><td>3</td><td>Maria Lopez</td><td>maria@test.dev</td><td>active</td></tr>
-      <tr data-status="active"><td>4</td><td>John Smith</td><td>john@test.dev</td><td>active</td></tr>
-      <tr data-status="inactive"><td>5</td><td>Li Wei</td><td>li@test.dev</td><td>inactive</td></tr>
+      <tr data-status="active"><td>1</td><td>Asha Patel</td><td>asha@test.dev</td><td>Admin</td><td><span class="badge active">active</span></td></tr>
+      <tr data-status="inactive"><td>2</td><td>Ravi Kumar</td><td>ravi@test.dev</td><td>Viewer</td><td><span class="badge inactive">inactive</span></td></tr>
+      <tr data-status="active"><td>3</td><td>Maria Lopez</td><td>maria@test.dev</td><td>Editor</td><td><span class="badge active">active</span></td></tr>
+      <tr data-status="active"><td>4</td><td>John Smith</td><td>john@test.dev</td><td>Viewer</td><td><span class="badge active">active</span></td></tr>
+      <tr data-status="inactive"><td>5</td><td>Li Wei</td><td>li@test.dev</td><td>Editor</td><td><span class="badge inactive">inactive</span></td></tr>
+      <tr data-status="active"><td>6</td><td>Fatima Noor</td><td>fatima@test.dev</td><td>Admin</td><td><span class="badge active">active</span></td></tr>
     </tbody>
   </table>
   </div>
+  <p id="no-rows" data-testid="no-rows" class="status err" hidden>No users match.</p>
 <script>
-  document.getElementById('status-filter').onchange = (e) => {
-    let shown = 0;
+  const sel = document.getElementById('status-filter');
+  const q = document.getElementById('name-search');
+  function apply(){
+    let shown = 0; const term = q.value.trim().toLowerCase();
     document.querySelectorAll('#users-table tbody tr').forEach(tr => {
-      const ok = e.target.value === 'all' || tr.dataset.status === e.target.value;
-      tr.hidden = !ok; if (ok) shown++;
+      const okStatus = sel.value === 'all' || tr.dataset.status === sel.value;
+      const okName = !term || tr.cells[1].textContent.toLowerCase().includes(term);
+      tr.hidden = !(okStatus && okName); if (!tr.hidden) shown++;
     });
     document.getElementById('row-count').textContent = shown;
-  };
+    document.getElementById('no-rows').hidden = shown !== 0;
+  }
+  sel.onchange = apply; q.oninput = apply;
 </script>
 </body></html>
