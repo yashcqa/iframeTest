@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Table frame</title><link rel="stylesheet" href="../css/style.css"></head>
+<body class="frame">
+  <h3 data-testid="table-title">Users</h3>
+  <div class="row">
+    <label for="status-filter" style="margin:0">Status</label>
+    <select id="status-filter" data-testid="status-filter">
+      <option value="all">All</option><option value="active">Active</option><option value="inactive">Inactive</option>
+    </select>
+    <span>Showing <strong id="row-count" data-testid="row-count">5</strong> rows</span>
+  </div>
+  <div class="scroll">
+  <table id="users-table" data-testid="users-table">
+    <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr data-status="active"><td>1</td><td>Asha Patel</td><td>asha@test.dev</td><td>active</td></tr>
+      <tr data-status="inactive"><td>2</td><td>Ravi Kumar</td><td>ravi@test.dev</td><td>inactive</td></tr>
+      <tr data-status="active"><td>3</td><td>Maria Lopez</td><td>maria@test.dev</td><td>active</td></tr>
+      <tr data-status="active"><td>4</td><td>John Smith</td><td>john@test.dev</td><td>active</td></tr>
+      <tr data-status="inactive"><td>5</td><td>Li Wei</td><td>li@test.dev</td><td>inactive</td></tr>
+    </tbody>
+  </table>
+  </div>
+<script>
+  document.getElementById('status-filter').onchange = (e) => {
+    let shown = 0;
+    document.querySelectorAll('#users-table tbody tr').forEach(tr => {
+      const ok = e.target.value === 'all' || tr.dataset.status === e.target.value;
+      tr.hidden = !ok; if (ok) shown++;
+    });
+    document.getElementById('row-count').textContent = shown;
+  };
+</script>
+</body></html>

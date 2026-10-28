@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Message frame</title><link rel="stylesheet" href="../css/style.css"></head>
+<body class="frame">
+  <h3>Iframe inbox</h3>
+  <p id="child-received" data-testid="child-received">Nothing received yet.</p>
+  <button id="btn-reply" data-testid="btn-reply">Reply to parent</button>
+<script>
+  let last = '';
+  window.addEventListener('message', (e) => {
+    if (e.data && e.data.from === 'parent') {
+      last = e.data.text;
+      document.getElementById('child-received').textContent = 'Received: ' + last;
+    }
+  });
+  document.getElementById('btn-reply').onclick = () =>
+    parent.postMessage({ from: 'child', text: last ? 'Got "' + last + '"' : 'Hello from iframe' }, '*');
+</script>
+</body></html>

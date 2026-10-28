@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login form frame</title><link rel="stylesheet" href="../css/style.css"></head>
+<body class="frame">
+  <h3 id="form-title" data-testid="form-title">Sign in</h3>
+  <div class="field"><label for="username">Username</label>
+    <input id="username" name="username" data-testid="username" autocomplete="off"></div>
+  <div class="field"><label for="password">Password</label>
+    <input id="password" name="password" type="password" data-testid="password"></div>
+  <div class="field"><label><input type="checkbox" id="remember" data-testid="remember"> Remember me</label></div>
+  <button id="btn-login" data-testid="btn-login">Sign in</button>
+  <button id="btn-clear" data-testid="btn-clear" class="secondary">Clear</button>
+  <p id="login-result" data-testid="login-result" class="status" role="status"></p>
+<script>
+  const r = document.getElementById('login-result');
+  document.getElementById('btn-login').addEventListener('click', () => {
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value;
+    if (!u || !p) { r.textContent = 'Enter a username and password.'; r.className = 'status err'; return; }
+    if (u === 'tester' && p === 'password123') { r.textContent = 'Signed in as ' + u; r.className = 'status ok'; }
+    else { r.textContent = 'Wrong username or password.'; r.className = 'status err'; }
+  });
+  document.getElementById('btn-clear').addEventListener('click', () => {
+    ['username','password'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('remember').checked = false;
+    r.textContent = ''; r.className = 'status';
+  });
+</script>
+</body></html>

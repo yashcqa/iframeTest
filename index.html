@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iframe Test Playground</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <h1>Iframe Test Playground</h1>
+    <p>Practice pages for testing iframes with Playwright, Selenium, Cypress or any test tool. Every element has an <code>id</code> and a <code>data-testid</code>.</p>
+    <ul class="toc">
+      <li><a href="#case-form">Login form</a></li>
+      <li><a href="#case-buttons">Buttons & alerts</a></li>
+      <li><a href="#case-nested">Nested iframes</a></li>
+      <li><a href="#case-table">Table</a></li>
+      <li><a href="#case-dynamic">Dynamic iframe</a></li>
+      <li><a href="#case-srcdoc">srcdoc iframe</a></li>
+      <li><a href="#case-message">postMessage</a></li>
+      <li><a href="#case-multiple">Same-name iframes</a></li>
+    </ul>
+  </header>
+
+  <section class="case" id="case-form">
+    <h2>Login form inside an iframe</h2>
+    <p class="desc">Fill in the fields and click Sign in. Valid login: <code>tester</code> / <code>password123</code>.</p>
+    <iframe id="frame-form" name="frame-form" data-testid="frame-form" title="Login form" src="frames/form.html" class="h-md"></iframe>
+  </section>
+
+  <section class="case" id="case-buttons">
+    <h2>Buttons, counter and alerts</h2>
+    <p class="desc">Click buttons, check the counter, handle alert, confirm and prompt dialogs, and wait for a delayed element.</p>
+    <iframe id="frame-buttons" name="frame-buttons" data-testid="frame-buttons" title="Buttons" src="frames/buttons.html" class="h-md"></iframe>
+  </section>
+
+  <section class="case" id="case-nested">
+    <h2>Nested iframes (3 levels)</h2>
+    <p class="desc">Page → outer iframe → inner iframe. The text field lives in the innermost frame.</p>
+    <iframe id="frame-outer" name="frame-outer" data-testid="frame-outer" title="Outer frame" src="frames/nested-outer.html" class="h-lg"></iframe>
+  </section>
+
+  <section class="case" id="case-table">
+    <h2>Table and dropdown</h2>
+    <p class="desc">Read table cells, filter by status, and pick a value from a dropdown.</p>
+    <iframe id="frame-table" name="frame-table" data-testid="frame-table" title="Table" src="frames/table.html" class="h-lg"></iframe>
+  </section>
+
+  <section class="case" id="case-dynamic">
+    <h2>Dynamic iframe</h2>
+    <p class="desc">The iframe only appears 2 seconds after you click Load. Use it to test waits.</p>
+    <div class="row">
+      <button id="btn-load-frame" data-testid="btn-load-frame">Load iframe</button>
+      <button id="btn-remove-frame" data-testid="btn-remove-frame" class="secondary">Remove iframe</button>
+      <span id="dynamic-status" data-testid="dynamic-status" class="status">No iframe loaded</span>
+    </div>
+    <div id="dynamic-holder"></div>
+  </section>
+
+  <section class="case" id="case-srcdoc">
+    <h2>srcdoc iframe (no separate file)</h2>
+    <p class="desc">Content is written directly in the <code>srcdoc</code> attribute.</p>
+    <iframe id="frame-srcdoc" data-testid="frame-srcdoc" title="srcdoc" class="h-sm"
+      srcdoc="<body style='font-family:system-ui;padding:12px'><p id='srcdoc-text' data-testid='srcdoc-text'>Hello from srcdoc</p><input id='srcdoc-input' data-testid='srcdoc-input' placeholder='Type here'><button id='srcdoc-btn' data-testid='srcdoc-btn' onclick=&quot;document.getElementById('srcdoc-text').textContent='You typed: '+document.getElementById('srcdoc-input').value&quot;>Show</button></body>"></iframe>
+  </section>
+
+  <section class="case" id="case-message">
+    <h2>Talking between page and iframe (postMessage)</h2>
+    <p class="desc">Send a message into the iframe; the iframe sends a reply back to this page.</p>
+    <div class="row">
+      <input id="parent-msg" data-testid="parent-msg" value="Ping from parent" aria-label="Message to send">
+      <button id="btn-send-msg" data-testid="btn-send-msg">Send to iframe</button>
+    </div>
+    <iframe id="frame-message" name="frame-message" data-testid="frame-message" title="Messages" src="frames/message.html" class="h-sm"></iframe>
+    <div class="log" id="parent-log" data-testid="parent-log">Replies from iframe show here.</div>
+  </section>
+
+  <section class="case" id="case-multiple">
+    <h2>Two iframes with the same page</h2>
+    <p class="desc">Both load the same file, so you must pick the right frame by id or index.</p>
+    <iframe id="frame-copy-1" data-testid="frame-copy-1" title="Copy 1" src="frames/buttons.html?copy=1" class="h-sm"></iframe>
+    <br>
+    <iframe id="frame-copy-2" data-testid="frame-copy-2" title="Copy 2" src="frames/buttons.html?copy=2" class="h-sm"></iframe>
+  </section>
+
+  <footer>Hosted on GitHub Pages. All frames are same-origin, so test tools can read inside them.</footer>
+</div>
+
+<script>
+  // Dynamic iframe
+  const holder = document.getElementById('dynamic-holder');
+  const dynStatus = document.getElementById('dynamic-status');
+  document.getElementById('btn-load-frame').addEventListener('click', () => {
+    if (document.getElementById('frame-dynamic')) return;
+    dynStatus.textContent = 'Loading…';
+    setTimeout(() => {
+      const f = document.createElement('iframe');
+      f.id = 'frame-dynamic';
+      f.setAttribute('data-testid', 'frame-dynamic');
+      f.title = 'Dynamic frame';
+      f.className = 'h-md';
+      f.src = 'frames/form.html?dynamic=1';
+      holder.appendChild(f);
+      dynStatus.textContent = 'Iframe loaded';
+    }, 2000);
+  });
+  document.getElementById('btn-remove-frame').addEventListener('click', () => {
+    const f = document.getElementById('frame-dynamic');
+    if (f) f.remove();
+    dynStatus.textContent = 'No iframe loaded';
+  });
+
+  // postMessage
+  const msgFrame = document.getElementById('frame-message');
+  const parentLog = document.getElementById('parent-log');
+  document.getElementById('btn-send-msg').addEventListener('click', () => {
+    msgFrame.contentWindow.postMessage({ from: 'parent', text: document.getElementById('parent-msg').value }, '*');
+  });
+  window.addEventListener('message', (e) => {
+    if (e.data && e.data.from === 'child') parentLog.textContent = 'Reply: ' + e.data.text;
+  });
+</script>
+</body>
+</html>

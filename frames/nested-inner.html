@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inner frame</title><link rel="stylesheet" href="../css/style.css"></head>
+<body class="frame">
+  <h3 id="inner-title" data-testid="inner-title">Inner frame (level 2)</h3>
+  <div class="field"><label for="inner-input">Message</label>
+    <input id="inner-input" data-testid="inner-input" placeholder="Type in the deepest frame"></div>
+  <button id="btn-inner" data-testid="btn-inner">Send</button>
+  <p id="inner-result" data-testid="inner-result" class="status" role="status"></p>
+<script>
+  document.getElementById('btn-inner').onclick = () => {
+    const v = document.getElementById('inner-input').value;
+    const r = document.getElementById('inner-result');
+    r.textContent = v ? 'Inner received: ' + v : 'Type a message first.';
+    r.className = 'status ' + (v ? 'ok' : 'err');
+  };
+</script>
+</body></html>

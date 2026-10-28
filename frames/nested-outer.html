@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Outer frame</title><link rel="stylesheet" href="../css/style.css"></head>
+<body class="frame">
+  <h3 id="outer-title" data-testid="outer-title">Outer frame (level 1)</h3>
+  <div class="row">
+    <input id="outer-input" data-testid="outer-input" placeholder="Outer input" aria-label="Outer input">
+    <button id="btn-outer" data-testid="btn-outer">Save outer</button>
+    <span id="outer-result" data-testid="outer-result" class="status"></span>
+  </div>
+  <iframe id="frame-inner" name="frame-inner" data-testid="frame-inner" title="Inner frame" src="nested-inner.html" style="height:200px"></iframe>
+<script>
+  document.getElementById('btn-outer').onclick = () =>
+    document.getElementById('outer-result').textContent = 'Saved: ' + document.getElementById('outer-input').value;
+</script>
+</body></html>
